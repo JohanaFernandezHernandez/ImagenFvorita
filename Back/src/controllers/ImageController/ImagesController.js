@@ -1,4 +1,4 @@
-const { Imagen } = require("../db.js");
+const { Imagen } = require("../../db.js");
 
 // Crear Imagen
 exports.createImagen = async (req, res) => {
@@ -20,7 +20,7 @@ exports.createImagen = async (req, res) => {
 };
 
 // Obtener todas las Imagenes
-exports.getImagen = async (req, res) => {
+exports.getImagenes = async (req, res) => {
   try {
     const imagenes = await Imagen.findAll();
     res.status(200).json(imagenes);
