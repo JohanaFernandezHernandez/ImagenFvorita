@@ -1,0 +1,11 @@
+.container-footer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 125px;
+    background-color: #000000E5 ;
+    border-top: 4px solid var(--Blue, #2271D1);
+    box-shadow: 0px 5px 29px 0px #2271D1B2;
+
+
+}

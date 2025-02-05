@@ -1,0 +1,23 @@
+.container-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 125px;
+    background-color: #000000E5;
+    width: 100%;
+    padding: 0px 51px;
+    box-sizing: border-box;
+    border-bottom: 4px solid var(--Blue, #2271D1);
+    box-shadow: 0px 5px 29px 0px #2271D1B2;
+}
+
+.container-nav{
+    display: flex;
+    gap: 25px;
+}
+
+
+
+.Logo{
+    width: 200px;
+}
