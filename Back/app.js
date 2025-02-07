@@ -1,38 +1,42 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const express = require("express");
+const cors = require("cors");
+const app = express();
+const imagenRoutes = require("./src/routes/ImagenRouter");
+const { sequelize } = require("./src/db");
 
-
-var app = express();
-
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
-
-app.use(logger('dev'));
+// Middleware
+app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.urlencoded({ extended: true }));
 
+// Routes
+app.use("/imagenes", imagenRoutes);
 
-
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Something broke!');
 });
 
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+// Iniciar Servidor
+const PORT = process.env.PORT || 3001;
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
+// Función para iniciar el servidor
+const startServer = async () => {
+  try {
+    await sequelize.authenticate();
+    console.log('Conexión a la base de datos establecida correctamente.');
+    
+    await sequelize.sync({ force: false });
+    console.log('Modelos sincronizados con la base de datos.');
+    
+    app.listen(PORT, () => {
+      console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
+    });
+  } catch (error) {
+    console.error("❌ Error al iniciar la DB:", error);
+    process.exit(1);
+  }
+};
 
-module.exports = app;
+startServer();
