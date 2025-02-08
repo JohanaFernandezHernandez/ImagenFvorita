@@ -19,7 +19,7 @@ app.use("/images", imagenRoutes);
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).send('Something broke!');
+  res.status(500).send("Something broke!");
 });
 
 // Iniciar Servidor
@@ -29,11 +29,12 @@ const PORT = process.env.PORT || 4008;
 const startServer = async () => {
   try {
     await sequelize.authenticate();
-    console.log('Conexión a la base de datos establecida correctamente.');
-    
-    await sequelize.sync({ force: false });
-    console.log('Modelos sincronizados con la base de datos.');
-    
+    console.log("Conexión a la base de datos establecida correctamente.");
+
+    // Sincronizar las tablas con los cambios del modelo
+    await sequelize.sync({ alter: true }); // <-- Cambiar `force: false` por `alter: true`
+    console.log("✅ Tablas sincronizadas con los nuevos cambios.");
+
     app.listen(PORT, () => {
       console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
     });
