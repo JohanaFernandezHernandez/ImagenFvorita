@@ -35,27 +35,51 @@ export const useConectionApi = () => {
 
 
     //Agregar una nueva imagen
-    const createImage = async (Title, ImagenURL) => {
-        try {
-            const response = await axios.post(`${url}/images/createImagen`, { Title, ImagenURL });
-            if (response.status === 201) {
-              return response.data;
-            }
-          } catch (error) {
-            console.error('Error en createImage:', error);
-          }
+    const createImage = async (Title, file) => {
+      try {
+        // Crear un objeto FormData para enviar el título y el archivo
+        const formData = new FormData();
+        formData.append("Title", Title);
+        formData.append("file", file);   
+    
+        // Hacer la petición POST al servidor
+        const response = await axios.post(`${url}/images/createImagen`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data", 
+          },
+        });
+    
+        if (response.status === 201) {
+          return response.data;
+        }
+      } catch (error) {
+        console.error("Error en createImage:", error);
+      }
     };
 
     //Actualizar una imagen
-    const updateImage = async (id, Title, ImagenURL) => {
-        try {
-            const response = await axios.put(`${url}/images/updateImagen/${id}`, { Title, ImagenURL });
-            if (response.status === 200) {
-              return response.data;
-            }
-          } catch (error) {
-            console.error('Error en updateImage:', error);
-          }
+    const updateImage = async (id, Title, file) => {
+      try {
+        // Crear un objeto FormData para enviar los datos
+        const formData = new FormData();
+        formData.append("Title", Title); 
+        if (file) {
+          formData.append("file", file); 
+        }
+    
+        // Hacer la petición PUT al servidor
+        const response = await axios.put(`${url}/images/updateImagen/${id}`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+    
+        if (response.status === 200) {
+          return response.data; 
+        }
+      } catch (error) {
+        console.error("Error en updateImage:", error);
+      }
     };
 
     //Borrar una imagen

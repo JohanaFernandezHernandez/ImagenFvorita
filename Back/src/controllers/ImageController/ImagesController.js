@@ -3,14 +3,14 @@ const { Imagen } = require("../../db.js");
 // Crear Imagen
 exports.createImagen = async (req, res) => {
   try {
+    const { Title } = req.body; 
+    
+    if (!Title) {
+      return res.status(400).json({ message: "El título es obligatorio." });
+    }
     // Verificar si el archivo fue subido
     if (!req.file) {
       return res.status(400).json({ message: "Es obligatorio subir una imagen." });
-    }
-
-    const { Title } = req.body; // Extraer el título del cuerpo de la solicitud
-    if (!Title) {
-      return res.status(400).json({ message: "El título es obligatorio." });
     }
 
     // Extraer información del archivo subido
