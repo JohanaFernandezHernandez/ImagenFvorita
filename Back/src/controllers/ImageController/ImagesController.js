@@ -3,19 +3,40 @@ const { Imagen } = require("../../db.js");
 // Crear Imagen
 exports.createImagen = async (req, res) => {
   try {
-    const { Title, ImagenURL } = req.body;
-    if (!Title || !ImagenURL) {
-      return res
-        .status(400)
-        .json({ message: "El titulo y la imagen es obligatoria" });
+    // Verificar si el archivo fue subido
+    if (!req.file) {
+      return res.status(400).json({ message: "Es obligatorio subir una imagen." });
     }
 
-    const imagen = await Imagen.create({ Title, ImagenURL });
-    res.status(201).json(imagen);
+    const { Title } = req.body; // Extraer el título del cuerpo de la solicitud
+    if (!Title) {
+      return res.status(400).json({ message: "El título es obligatorio." });
+    }
+
+    // Extraer información del archivo subido
+    const { filename, mimetype, size } = req.file;
+
+    // Generar la URL de la imagen basada en el archivo subido
+    const ImagenURL = `${req.protocol}://${req.get("host")}/uploads/${filename}`;
+
+    // Crear el registro en la base de datos
+    const imagen = await Imagen.create({
+      Title,
+      ImagenURL,
+      filename,
+      mimetype,
+      size,
+    });
+
+    res.status(201).json({
+      message: "Imagen creada exitosamente.",
+      imagen,
+    });
   } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Error al crear la Imagen", error: error.message });
+    res.status(500).json({
+      message: "Error al crear la imagen.",
+      error: error.message,
+    });
   }
 };
 
@@ -49,21 +70,42 @@ exports.getImagenById = async (req, res) => {
 exports.updateImagen = async (req, res) => {
   try {
     const { id } = req.params;
-    const { Title, ImagenURL } = req.body;
+    const { Title } = req.body;
+
+    // Buscar la imagen por su ID
     const imagen = await Imagen.findByPk(id);
     if (!imagen) {
-      return res.status(404).json({ message: 'Imagen no encontrada' });
+      return res.status(404).json({ message: "Imagen no encontrada" });
     }
 
-    imagen.Title = Title || imagen.Title;
-    imagen.ImagenURL = ImagenURL || imagen.ImagenURL;
+    // Si se subió un nuevo archivo, actualizar la información
+    if (req.file) {
+      const { filename, mimetype, size } = req.file;
 
+      // Generar la nueva URL de la imagen
+      const ImagenURL = `${req.protocol}://${req.get("host")}/uploads/${filename}`;
+
+      // Actualizar los campos relacionados con la imagen
+      imagen.filename = filename;
+      imagen.mimetype = mimetype;
+      imagen.size = size;
+      imagen.ImagenURL = ImagenURL;
+    }
+
+    // Actualizar el título si fue proporcionado
+    imagen.Title = Title || imagen.Title;
+
+    // Guardar los cambios
     await imagen.save();
-    res.status(200).json(imagen);
+    res.status(200).json({
+      message: "Imagen actualizada exitosamente",
+      imagen,
+    });
   } catch (error) {
-    res
-     .status(500)
-     .json({ message: 'Error al editar la Imagen', error: error.message });
+    res.status(500).json({
+      message: "Error al editar la Imagen",
+      error: error.message,
+    });
   }
 };
 
@@ -72,16 +114,26 @@ exports.updateImagen = async (req, res) => {
 exports.deleteImagen = async (req, res) => {
   try {
     const { id } = req.params;
+
+    // Buscar la imagen por su ID
     const imagen = await Imagen.findByPk(id);
     if (!imagen) {
-      return res.status(404).json({ message: 'Imagen no encontrada' });
+      return res.status(404).json({ message: "Imagen no encontrada" });
     }
 
+    // Eliminar el archivo físico del servidor si existe
+    const filePath = path.join(__dirname, "../../uploads", imagen.filename);
+    if (fs.existsSync(filePath)) {
+      fs.unlinkSync(filePath);
+    }
+
+    // Eliminar el registro de la base de datos
     await imagen.destroy();
-    res.status(200).json({ message: 'Imagen Eliminada exitosamente' });
+    res.status(200).json({ message: "Imagen eliminada exitosamente" });
   } catch (error) {
-    res
-     .status(500)
-     .json({ message: 'Error al eliminar la Imagen', error: error.message });
+    res.status(500).json({
+      message: "Error al eliminar la Imagen",
+      error: error.message,
+    });
   }
 };
