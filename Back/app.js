@@ -10,7 +10,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Routes
-app.use("/imagenes", imagenRoutes);
+app.use("/images", imagenRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
