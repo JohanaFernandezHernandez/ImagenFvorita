@@ -11,8 +11,6 @@ export const useConectionApi = () => {
     const getImages = async() => {
         try {
             const response = await axios.get(`${url}/images/getImagen`);
-            console.log('Full URL:', `${url}/images/getImagen`);
-            console.log(response);
             if (response.status === 200) {
               return response.data;
             }

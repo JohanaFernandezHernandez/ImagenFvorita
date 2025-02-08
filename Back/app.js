@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
 const app = express();
 const imagenRoutes = require("./src/routes/ImagenRouter");
 const { sequelize } = require("./src/db");
@@ -8,6 +9,9 @@ const { sequelize } = require("./src/db");
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Servir archivos estáticos (para acceder a imágenes subidas)
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // Routes
 app.use("/images", imagenRoutes);

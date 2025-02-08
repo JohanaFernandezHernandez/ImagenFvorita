@@ -15,7 +15,7 @@ export const Header = () => {
     };
 
     const onclickVideo = () => {
-       navigate('/video')
+       navigate('/create')
     };
 
 
