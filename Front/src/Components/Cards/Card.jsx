@@ -3,7 +3,7 @@ import Borrar from "../../assets/svg/Borrar"
 import Editar from "../../assets/svg/Editar"
 import './Card.css'
 
-export const Card = ({img, title}) => {
+export const Card = ({img, title, id, onDelete}) => {
 
 return(
 <div className="card">
@@ -15,8 +15,8 @@ return(
     <h3 className='title-imagen'>{title}</h3>
     
     <div className="container-button">
-        <buton className="button-card"> <Borrar/> BORRAR</buton>
-        <buton className="button-card"> <Editar/> EDITAR</buton>
+        <button className="button-card" onClick={() => onDelete(id)}> <Borrar/> BORRAR</button>
+        <button className="button-card"> <Editar/> EDITAR</button>
     </div>
 </div>
 )
