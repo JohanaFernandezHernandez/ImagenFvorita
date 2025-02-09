@@ -10,15 +10,21 @@ export const HomePage = () => {
   const [images, setImages] = useState([]);
   const { getImages, deleteImage } = useConectionApi();
 
+  //Obtener todas las imágenes de la DB 
   useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        const response = await getImages();
+        setImages(response);
+      } catch (error) {
+        console.error("Error al obtener imágenes:", error);
+      }
+    };
+  
     fetchImages();
   }, []);
 
-  const fetchImages = async () => {
-    const response = await getImages();
-    setImages(response);
-  };
-
+  //Eliminar Imagen
   const handleDelete = async (id) => {
     Swal.fire({
       title: '¿Seguro que quieres eliminar esta imagen?',
@@ -51,6 +57,8 @@ export const HomePage = () => {
       }
     });
   };
+
+  //Editar Imagen
 
   return (
     <section className="container-card">
