@@ -56,47 +56,87 @@ export const Card = ({ img, title, id, onDelete, onEdit }) => {
 
   return (
     <MuiCard
+  sx={{
+    width: 350,
+    borderRadius: 3,
+    boxShadow: "0px 4px 8px rgba(255, 255, 255, 0.1)", // Sombra sutil en gris/blanco
+    transition: "transform 0.3s ease, box-shadow 0.3s ease", // Animación suave en hover
+    backgroundColor: "#1e1e1e", // Fondo oscuro para la card
+    "&:hover": {
+      boxShadow: "0px 8px 16px rgba(255, 255, 255, 0.2)", // Sombra más intensa en hover
+      transform: "scale(1.03)", // Efecto de zoom sutil
+    },
+    overflow: "hidden",
+  }}
+>
+  {/* Imagen */}
+  <CardMedia
+    component="img"
+    height="220"
+    image={img}
+    alt={title}
+    sx={{
+      objectFit: "cover",
+      objectPosition: "top",
+      borderBottom: "1px solid rgba(255, 255, 255, 0.1)", // Línea separadora sutil
+    }}
+  />
+
+  {/* Contenido */}
+  <CardContent sx={{ padding: "10px" }}>
+    <Typography variant="h6" fontWeight="bold" textAlign="center" color="#ffffff">
+      {title}
+    </Typography>
+  </CardContent>
+
+  {/* Botones */}
+  <CardActions
+    sx={{
+      display: "flex",
+      justifyContent: "space-between",
+      px: 2,
+      pb: 2,
+    }}
+  >
+    <Button
+      variant="contained"
+      color="error"
+      startIcon={<Borrar />}
+      onClick={() => onDelete(id)}
       sx={{
-        width: 350,
-        borderRadius: 3,
-        boxShadow: 4,
-        transition: "0.3s",
-        "&:hover": { boxShadow: 8 },
-        overflow: "hidden",
+        borderRadius: 2,
+        textTransform: "none",
+        fontWeight: "bold",
+        backgroundColor: "#ff5c5c",
+        color: "#ffffff",
+        "&:hover": {
+          backgroundColor: "#e53935",
+        },
       }}
     >
-      {/* Imagen */}
-      <CardMedia component="img" height="200" image={img} alt={title} sx={{ objectFit: "cover" }} />
+      Borrar
+    </Button>
 
-      {/* Contenido */}
-      <CardContent>
-        <Typography variant="h6" fontWeight="bold" textAlign="center">
-          {title}
-        </Typography>
-      </CardContent>
+    <Button
+      variant="contained"
+      color="primary"
+      startIcon={<Editar />}
+      onClick={handleOpen}
+      sx={{
+        borderRadius: 2,
+        textTransform: "none",
+        fontWeight: "bold",
+        backgroundColor: "#2271D1",
+        color: "#ffffff",
+        "&:hover": {
+          backgroundColor: "#1a5bb5",
+        },
+      }}
+    >
+      Editar
+    </Button>
+  </CardActions>
 
-      {/* Botones */}
-      <CardActions sx={{ display: "flex", justifyContent: "space-between", px: 2, pb: 2 }}>
-        <Button
-          variant="contained"
-          color="error"
-          startIcon={<Borrar />}
-          onClick={() => onDelete(id)}
-          sx={{ borderRadius: 2 }}
-        >
-          Borrar
-        </Button>
-
-        <Button
-          variant="contained"
-          color="primary"
-          startIcon={<Editar />}
-          onClick={handleOpen}
-          sx={{ borderRadius: 2 }}
-        >
-          Editar
-        </Button>
-      </CardActions>
 
       {/* Modal de edición */}
       <Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
