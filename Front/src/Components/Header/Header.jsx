@@ -1,36 +1,44 @@
 import { useNavigate } from "react-router-dom";
-// import IconAlura from "../../assets/svg/IconArura"
-// import { Button } from "../Button/Button";
-import './Header.css';
-import { Button } from '@mui/material';
+import { Button, Box } from "@mui/material";
 import Logo from "../../assets/Logo.png";
 
-
 export const Header = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    const onclick = () => {
-        navigate('/')
- 
-    };
+  const handleHomeClick = () => {
+    navigate("/");
+  };
 
-    const onclickVideo = () => {
-       navigate('/create')
-    };
+  const handleCreateImageClick = () => {
+    navigate("/create");
+  };
 
+  return (
+    <Box
+      component="header"
+      sx={{
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        height: "125px",
+        backgroundColor: "#000000E5",
+        width: "100%",
+        padding: "0px 51px",
+        boxSizing: "border-box",
+        borderBottom: "4px solid #2271D1",
+        boxShadow: "0px 5px 29px 0px #2271D1B2",
+      }}
+    >
+      <Box component="img" src={Logo} alt="Logo" sx={{ width: "200px" }} />
 
-    
-
-return(
-
-<header className="container-header"> 
-    <img className="Logo" alt="logo" src={Logo}/>
-    <nav className="container-nav">
-        <Button onClick={onclick}>Home</Button>
-        <Button onClick={onclickVideo}>Nueva Imagen</Button>
-       
-    </nav>
-
-</header>
-)
-}
+      <Box sx={{ display: "flex", gap: "25px" }}>
+        <Button variant="contained" color="primary" onClick={handleHomeClick}>
+          Home
+        </Button>
+        <Button variant="contained" color="secondary" onClick={handleCreateImageClick}>
+          Nueva Imagen
+        </Button>
+      </Box>
+    </Box>
+  );
+};

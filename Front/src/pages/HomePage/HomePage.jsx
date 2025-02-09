@@ -4,13 +4,14 @@ import { Card, Header } from "../../Components";
 import "./HomePage.css";
 import Flor from "../../assets/Flor.jpg";
 import Flor2 from "../../assets/Flor2.avif";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
+import { Typography, Box } from "@mui/material";
 
 export const HomePage = () => {
   const [images, setImages] = useState([]);
   const { getImages, deleteImage, updateImage } = useConectionApi();
 
-  //Obtener todas las imágenes de la DB 
+  //Obtener todas las imágenes de la DB
   const fetchImages = async () => {
     try {
       const response = await getImages();
@@ -27,31 +28,31 @@ export const HomePage = () => {
   //Eliminar Imagen
   const handleDelete = async (id) => {
     Swal.fire({
-      title: '¿Seguro que quieres eliminar esta imagen?',
-      text: 'Esta acción no se puede deshacer',
-      icon: 'warning',
+      title: "¿Seguro que quieres eliminar esta imagen?",
+      text: "Esta acción no se puede deshacer",
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: '#d33',
-      cancelButtonColor: '#3085d6',
-      confirmButtonText: 'Sí, eliminar',
-      cancelButtonText: 'Cancelar'
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Sí, eliminar",
+      cancelButtonText: "Cancelar",
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
           await deleteImage(id);
           Swal.fire({
-            title: '¡Eliminado!',
-            text: 'La imagen ha sido eliminada con éxito.',
-            icon: 'success',
-            confirmButtonText: 'Aceptar'
+            title: "¡Eliminado!",
+            text: "La imagen ha sido eliminada con éxito.",
+            icon: "success",
+            confirmButtonText: "Aceptar",
           });
           fetchImages();
         } catch (error) {
           Swal.fire({
-            title: 'Error',
-            text: 'Hubo un problema al eliminar la imagen.',
-            icon: 'error',
-            confirmButtonText: 'Aceptar'
+            title: "Error",
+            text: "Hubo un problema al eliminar la imagen.",
+            icon: "error",
+            confirmButtonText: "Aceptar",
           });
         }
       }
@@ -64,35 +65,40 @@ export const HomePage = () => {
       const response = await updateImage(id, title, file);
       if (response) {
         Swal.fire({
-          title: '¡Actualizado!',
-          text: 'La imagen ha sido actualizada con éxito.',
-          icon: 'success',
-          confirmButtonText: 'Aceptar'
+          title: "¡Actualizado!",
+          text: "La imagen ha sido actualizada con éxito.",
+          icon: "success",
+          confirmButtonText: "Aceptar",
         });
         await fetchImages(); // Refrescar la lista de imágenes
       }
     } catch (error) {
       Swal.fire({
-        title: 'Error',
-        text: 'Hubo un problema al actualizar la imagen.',
-        icon: 'error',
-        confirmButtonText: 'Aceptar'
+        title: "Error",
+        text: "Hubo un problema al actualizar la imagen.",
+        icon: "error",
+        confirmButtonText: "Aceptar",
       });
     }
   };
 
   return (
-    <section className="container-card">
-      {images.map((imagen) => (
-        <Card
-          key={imagen.ImagenID}
-          id={imagen.ImagenID}
-          img={imagen.ImagenURL}
-          title={imagen.Title}
-          onDelete={handleDelete}
-          onEdit={handleEdit}
-        />
-      ))}
-    </section>
+    <>
+      <Box>
+        <Typography>Guarda tus imagenes Favoritas</Typography>
+      </Box>
+      <section className="container-card">
+        {images.map((imagen) => (
+          <Card
+            key={imagen.ImagenID}
+            id={imagen.ImagenID}
+            img={imagen.ImagenURL}
+            title={imagen.Title}
+            onDelete={handleDelete}
+            onEdit={handleEdit}
+          />
+        ))}
+      </section>
+    </>
   );
 };
