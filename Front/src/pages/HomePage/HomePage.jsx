@@ -8,19 +8,19 @@ import Swal from 'sweetalert2';
 
 export const HomePage = () => {
   const [images, setImages] = useState([]);
-  const { getImages, deleteImage } = useConectionApi();
+  const { getImages, deleteImage, updateImage } = useConectionApi();
 
   //Obtener todas las imágenes de la DB 
+  const fetchImages = async () => {
+    try {
+      const response = await getImages();
+      setImages(response);
+    } catch (error) {
+      console.error("Error al obtener imágenes:", error);
+    }
+  };
+
   useEffect(() => {
-    const fetchImages = async () => {
-      try {
-        const response = await getImages();
-        setImages(response);
-      } catch (error) {
-        console.error("Error al obtener imágenes:", error);
-      }
-    };
-  
     fetchImages();
   }, []);
 
@@ -59,6 +59,25 @@ export const HomePage = () => {
   };
 
   //Editar Imagen
+  const handleEdit = async (id, title, file) => {
+    try {
+      await updateImage(id, title, file);
+      Swal.fire({
+        title: '¡Actualizado!',
+        text: 'La imagen ha sido actualizada con éxito.',
+        icon: 'success',
+        confirmButtonText: 'Aceptar'
+      });
+      fetchImages();
+    } catch (error) {
+      Swal.fire({
+        title: 'Error',
+        text: 'Hubo un problema al actualizar la imagen.',
+        icon: 'error',
+        confirmButtonText: 'Aceptar'
+      });
+    }
+  };
 
   return (
     <section className="container-card">
@@ -69,6 +88,7 @@ export const HomePage = () => {
           img={imagen.ImagenURL}
           title={imagen.Title}
           onDelete={handleDelete}
+          onEdit={handleEdit}
         />
       ))}
     </section>
