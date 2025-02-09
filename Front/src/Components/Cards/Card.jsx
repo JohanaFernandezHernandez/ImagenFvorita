@@ -44,9 +44,10 @@ export const Card = ({img, title, id, onDelete, onEdit}) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await onEdit(id, formData.Title, formData.file);
+    setPreviewUrl(img); // Resetea la vista previa después de la actualización
     handleClose();
   };
-
+  
   return(
     <div className="card">
       <Box sx={{width:"100%", height:"80%"}}>

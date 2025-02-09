@@ -80,11 +80,9 @@ exports.updateImagen = async (req, res) => {
       return res.status(404).json({ message: "Imagen no encontrada" });
     }
 
-    // Si se subió un nuevo archivo, actualizar la información
+    // Si se subió un nuevo archivo, actualizar la imagen
     if (req.file) {
       const { filename, mimetype, size } = req.file;
-
-      // Generar la nueva URL de la imagen
       const ImagenURL = `${req.protocol}://${req.get("host")}/uploads/${filename}`;
 
       // Actualizar los campos relacionados con la imagen
@@ -94,8 +92,10 @@ exports.updateImagen = async (req, res) => {
       imagen.ImagenURL = ImagenURL;
     }
 
-    // Actualizar el título si fue proporcionado
-    imagen.Title = Title || imagen.Title;
+    // Actualizar el título solo si fue proporcionado
+    if (Title) {
+      imagen.Title = Title;
+    }
 
     // Guardar los cambios
     await imagen.save();

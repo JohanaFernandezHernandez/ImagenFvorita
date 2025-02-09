@@ -59,11 +59,12 @@ export const useConectionApi = () => {
     //Actualizar una imagen
     const updateImage = async (id, Title, file) => {
       try {
-        // Crear un objeto FormData para enviar los datos
         const formData = new FormData();
         formData.append("Title", Title); 
+    
+        // Verifica si se seleccionó una imagen antes de agregarla
         if (file) {
-          formData.append("file", file); 
+          formData.append("file", file);
         }
     
         const response = await axios.put(`${url}/images/updateImagen/${id}`, formData, {
@@ -73,7 +74,7 @@ export const useConectionApi = () => {
         });
     
         if (response.status === 200) {
-          return response.data; 
+          return response.data;
         }
       } catch (error) {
         console.error("Error en updateImage:", error);

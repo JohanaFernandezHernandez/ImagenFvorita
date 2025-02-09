@@ -61,14 +61,16 @@ export const HomePage = () => {
   //Editar Imagen
   const handleEdit = async (id, title, file) => {
     try {
-      await updateImage(id, title, file);
-      Swal.fire({
-        title: '¡Actualizado!',
-        text: 'La imagen ha sido actualizada con éxito.',
-        icon: 'success',
-        confirmButtonText: 'Aceptar'
-      });
-      fetchImages();
+      const response = await updateImage(id, title, file);
+      if (response) {
+        Swal.fire({
+          title: '¡Actualizado!',
+          text: 'La imagen ha sido actualizada con éxito.',
+          icon: 'success',
+          confirmButtonText: 'Aceptar'
+        });
+        await fetchImages(); // Asegura que se refresquen los datos
+      }
     } catch (error) {
       Swal.fire({
         title: 'Error',
