@@ -58,7 +58,7 @@ const CreateImage = () => {
         setFormData({ Title: "", file: null });
         setPreview("");
 
-        setTimeout(() => navigate("/"), 2000);
+        setTimeout(() => navigate("/"), 1000);
       }
     } catch (err) {
       setError(err.message || "Ocurrió un error al subir la imagen");
@@ -68,7 +68,7 @@ const CreateImage = () => {
   };
 
   return (
-    <Container maxWidth="sm">
+    <Container maxWidth="sm" sx={{ minHeight: "70vh", maxWidth:"1550px", margin: "30px auto" }}>
       <Typography variant="h4" align="center" gutterBottom>
         Subir Nueva Imagen
       </Typography>

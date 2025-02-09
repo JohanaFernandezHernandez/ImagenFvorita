@@ -1,4 +1,4 @@
-import { Button, Box, Modal, TextField, Typography, Card as MuiCard, CardContent, CardActions } from "@mui/material";
+import { Button, Box, Modal, TextField, Typography, Card as MuiCard, CardContent, CardActions, CardMedia } from "@mui/material";
 import Borrar from "../../assets/svg/Borrar";
 import Editar from "../../assets/svg/Editar";
 import { useState, useEffect } from "react";
@@ -55,22 +55,45 @@ export const Card = ({ img, title, id, onDelete, onEdit }) => {
   };
 
   return (
-    <MuiCard sx={{ width: 400, height: 400, border: "5px solid #6BD1FF", borderRadius: "15px", overflow: "hidden" }}>
-      <Box sx={{ width: "100%", height: "70%" }}>
-        <img src={img} alt="Imagen card" style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "15px" }} />
-      </Box>
+    <MuiCard
+      sx={{
+        width: 350,
+        borderRadius: 3,
+        boxShadow: 4,
+        transition: "0.3s",
+        "&:hover": { boxShadow: 8 },
+        overflow: "hidden",
+      }}
+    >
+      {/* Imagen */}
+      <CardMedia component="img" height="200" image={img} alt={title} sx={{ objectFit: "cover" }} />
 
-      <CardContent sx={{ p: 1 }}>
-        <Typography variant="h6" align="center" gutterBottom>
+      {/* Contenido */}
+      <CardContent>
+        <Typography variant="h6" fontWeight="bold" textAlign="center">
           {title}
         </Typography>
       </CardContent>
 
-      <CardActions sx={{ justifyContent: "space-around", borderTop: "5px solid #6BD1FF", padding: "5px" }}>
-        <Button variant="contained" color="error" startIcon={<Borrar />} onClick={() => onDelete(id)}>
+      {/* Botones */}
+      <CardActions sx={{ display: "flex", justifyContent: "space-between", px: 2, pb: 2 }}>
+        <Button
+          variant="contained"
+          color="error"
+          startIcon={<Borrar />}
+          onClick={() => onDelete(id)}
+          sx={{ borderRadius: 2 }}
+        >
           Borrar
         </Button>
-        <Button variant="contained" color="primary" startIcon={<Editar />} onClick={handleOpen}>
+
+        <Button
+          variant="contained"
+          color="primary"
+          startIcon={<Editar />}
+          onClick={handleOpen}
+          sx={{ borderRadius: 2 }}
+        >
           Editar
         </Button>
       </CardActions>
@@ -78,7 +101,7 @@ export const Card = ({ img, title, id, onDelete, onEdit }) => {
       {/* Modal de edición */}
       <Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
         <Box sx={modalStyle}>
-          <Typography variant="h5" gutterBottom>
+          <Typography variant="h5" gutterBottom sx={{color: "black", textAlign: "center", marginBottom: "25px"}}>
             Editar Imagen
           </Typography>
           <form onSubmit={handleSubmit}>

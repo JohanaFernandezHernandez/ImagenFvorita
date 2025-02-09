@@ -83,9 +83,9 @@ export const HomePage = () => {
   };
 
   return (
-    <>
+    <Box sx={{maxWidth:"1550px", margin: "30px auto"}}>
       <Box>
-        <Typography>Guarda tus imagenes Favoritas</Typography>
+        <Typography variant="h4" align="center" gutterBottom>Guarda tus imagenes Favoritas</Typography>
       </Box>
       <section className="container-card">
         {images.map((imagen) => (
@@ -99,6 +99,6 @@ export const HomePage = () => {
           />
         ))}
       </section>
-    </>
+    </Box>
   );
 };
