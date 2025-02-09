@@ -42,7 +42,6 @@ export const useConectionApi = () => {
         formData.append("Title", Title);
         formData.append("file", file);   
     
-        // Hacer la petición POST al servidor
         const response = await axios.post(`${url}/images/createImagen`, formData, {
           headers: {
             "Content-Type": "multipart/form-data", 
@@ -67,7 +66,6 @@ export const useConectionApi = () => {
           formData.append("file", file); 
         }
     
-        // Hacer la petición PUT al servidor
         const response = await axios.put(`${url}/images/updateImagen/${id}`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",

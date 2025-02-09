@@ -8,11 +8,11 @@ export const Card = ({img, title}) => {
 return(
 <div className="card">
     
-    <Box>
+    <Box sx={{width:"100%", height:"80%"}}>
     <img className="imagen-card" src={img} alt="Imagen card"/>
     </Box>
     
-    <h3>{title}</h3>
+    <h3 className='title-imagen'>{title}</h3>
     
     <div className="container-button">
         <buton className="button-card"> <Borrar/> BORRAR</buton>

@@ -24,10 +24,15 @@ export const HomePage = () => {
 
   return (
     <section className="container-card">
+      {images.map((imagen)=>{
+        return <Card key={imagen.ImagenID
+        } img={imagen.ImagenURL} title={imagen.Title} /> 
+
+      })}
       <Card img={Flor} title="Hermosa Flor" />
       <Card img={Flor2} title="Hermosa Flor" />
 
-      <Card img={Flor} title="Hermosa Flor" />
+
 
     </section>
   );
