@@ -62,7 +62,7 @@ export const useConectionApi = () => {
         const formData = new FormData();
         formData.append("Title", Title); 
     
-        // Verifica si se seleccionó una imagen antes de agregarla
+        // Agregar el archivo solo si el usuario seleccionó uno nuevo
         if (file) {
           formData.append("file", file);
         }
@@ -83,15 +83,15 @@ export const useConectionApi = () => {
 
     //Borrar una imagen
     const deleteImage = async (id) => {
-        try {
-            const response = await axios.delete(`${url}/images/deleteImagen/${id}`);
-            if (response.status === 200) {
-              return response.data;
-            }
-          } catch (error) {
-            console.error('Error en deleteImage:', error);
+      try {
+          const response = await axios.delete(`${url}/images/deleteImagen/${id}`);
+          if (response.status === 200) {
+            return response.data;
           }
-    };
+      } catch (error) {
+          console.error("Error en deleteImage:", error);
+      }
+  };
 
     return {
         getImages,

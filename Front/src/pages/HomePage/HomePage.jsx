@@ -69,7 +69,7 @@ export const HomePage = () => {
           icon: 'success',
           confirmButtonText: 'Aceptar'
         });
-        await fetchImages(); // Asegura que se refresquen los datos
+        await fetchImages(); // Refrescar la lista de imágenes
       }
     } catch (error) {
       Swal.fire({
