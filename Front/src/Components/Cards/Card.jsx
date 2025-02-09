@@ -2,7 +2,7 @@ import { Button, Box, Modal, TextField } from '@mui/material';
 import Borrar from "../../assets/svg/Borrar"
 import Editar from "../../assets/svg/Editar"
 import './Card.css'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const modalStyle = {
   position: 'absolute',
@@ -24,11 +24,24 @@ export const Card = ({img, title, id, onDelete, onEdit}) => {
   });
   const [previewUrl, setPreviewUrl] = useState(img);
 
-  const handleOpen = () => setOpen(true);
+  // Actualizar el estado cuando cambien las props
+  useEffect(() => {
+    setFormData(prev => ({ ...prev, Title: title }));
+    setPreviewUrl(img);
+  }, [title, img]);
+
+  const handleOpen = () => {
+    // Resetear el formulario al estado actual de la imagen cuando se abre el modal
+    setFormData({
+      Title: title,
+      file: null
+    });
+    setPreviewUrl(img);
+    setOpen(true);
+  };
+
   const handleClose = () => {
     setOpen(false);
-    setFormData({ Title: title, file: null });
-    setPreviewUrl(img);
   };
 
   const handleInputChange = (e) => {
@@ -44,7 +57,6 @@ export const Card = ({img, title, id, onDelete, onEdit}) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await onEdit(id, formData.Title, formData.file);
-    setPreviewUrl(img); // Resetea la vista previa después de la actualización
     handleClose();
   };
   
