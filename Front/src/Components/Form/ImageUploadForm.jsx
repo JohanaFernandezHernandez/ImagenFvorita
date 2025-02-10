@@ -66,7 +66,7 @@ const ImageUploadForm = ({
               gap: "10px",
               padding: 0,
               overflow: "hidden",
-              position: "relative"
+              position: "relative",
             }}
           >
             {preview ? (
@@ -85,7 +85,7 @@ const ImageUploadForm = ({
             ) : (
               <>
                 <IconoFolder />
-                Seleccionar Imagen
+                Selecciona Tu Imagen
               </>
             )}
           </Button>
