@@ -2,8 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useConectionApi } from "../../hooks/useConextionApi";
 import { Container, Typography } from "@mui/material";
-import { ImagePreview, ImageUploadForm } from "../../Components";
-
+import { ImageUploadForm } from "../../Components";
 
 const CreateImage = () => {
   const [formData, setFormData] = useState({ Title: "", file: null });
@@ -69,33 +68,33 @@ const CreateImage = () => {
 
   return (
     <Container 
-  maxWidth="sm" 
-  sx={{ 
-    minHeight: "70vh", 
-    maxWidth: "1550px", 
-    margin: "30px auto",
-    width: {
-      xs: "100%",
-      sm: "85%",
-      md: "75%",
-      lg: "1150px",
-      xl: "1226px",
-    },
-    border: "solid 1px #CEC7C7",
-    borderRadius: "30px",
-    boxShadow: "0px 10px 60px 0px #E2ECF980, 0px 4px 4px 0px #00000040",
-    maxWidth: "1226px",
-    padding: {
-      xs: "14px 9px",
-      sm: "14px 9px",
-      md: "24px 29px",
-      lg: "37px 29px",
-      xl: "37px 29px",
-    },
-    boxSizing: "border-box",
-    marginTop: "16px",
-  }}
->
+      maxWidth="sm" 
+      sx={{ 
+        minHeight: "70vh", 
+        maxWidth: "1550px", 
+        margin: "30px auto",
+        width: {
+          xs: "100%",
+          sm: "85%",
+          md: "75%",
+          lg: "1150px",
+          xl: "1226px",
+        },
+        border: "solid 1px #CEC7C7",
+        borderRadius: "30px",
+        boxShadow: "0px 10px 60px 0px #E2ECF980, 0px 4px 4px 0px #00000040",
+        maxWidth: "1226px",
+        padding: {
+          xs: "14px 9px",
+          sm: "14px 9px",
+          md: "24px 29px",
+          lg: "37px 29px",
+          xl: "37px 29px",
+        },
+        boxSizing: "border-box",
+        marginTop: "16px",
+      }}
+    >
       <Typography variant="h4" align="center" gutterBottom>
         Subir Nueva Imagen
       </Typography>
@@ -106,8 +105,8 @@ const CreateImage = () => {
         isSubmitting={isSubmitting}
         error={error}
         success={success}
+        preview={preview}
       />
-      {preview && <ImagePreview preview={preview} />}
     </Container>
   );
 };

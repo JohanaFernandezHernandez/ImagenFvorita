@@ -8,6 +8,7 @@ const ImageUploadForm = ({
   isSubmitting,
   error,
   success,
+  preview,
 }) => {
     
   return (
@@ -23,17 +24,17 @@ const ImageUploadForm = ({
           placeholder="Ingresa un título para la imagen"
           disabled={isSubmitting}
           sx={{
-            backgroundColor: "#f5f5f5", // Fondo gris claro
-            borderRadius: 2, // Bordes redondeados
+            backgroundColor: "#f5f5f5",
+            borderRadius: 2,
             "& .MuiOutlinedInput-root": {
               "& fieldset": {
-                borderColor: "#2271D1", // Borde azul cuando no está seleccionado
+                borderColor: "#2271D1",
               },
               "&:hover fieldset": {
-                borderColor: "#0056b3", // Azul más oscuro al pasar el mouse
+                borderColor: "#0056b3",
               },
               "&.Mui-focused fieldset": {
-                borderColor: "#004494", // Azul aún más oscuro cuando está enfocado
+                borderColor: "#004494",
               },
             },
           }}
@@ -51,9 +52,42 @@ const ImageUploadForm = ({
           id="file-upload"
         />
         <label htmlFor="file-upload">
-          <Button variant="contained" component="span" fullWidth sx={{height:"150px",backgroundColor: "#f5f5f5", borderColor: "#2271D1", color:"gray", display:"flex", flexDirection: "column", gap:"10px"}}>
-            <IconoFolder/>
-            Seleccionar Imagen
+          <Button 
+            variant="contained" 
+            component="span" 
+            fullWidth 
+            sx={{
+              height: "300px",
+              backgroundColor: "#f5f5f5", 
+              borderColor: "#2271D1", 
+              color: "gray",
+              display: "flex",
+              flexDirection: "column",
+              gap: "10px",
+              padding: 0,
+              overflow: "hidden",
+              position: "relative"
+            }}
+          >
+            {preview ? (
+              <img
+                src={preview}
+                alt="Vista previa"
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  position: "absolute",
+                  top: 0,
+                  left: 0
+                }}
+              />
+            ) : (
+              <>
+                <IconoFolder />
+                Seleccionar Imagen
+              </>
+            )}
           </Button>
         </label>
       </Box>
