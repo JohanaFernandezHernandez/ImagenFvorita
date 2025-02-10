@@ -1,4 +1,5 @@
 import { TextField, Button, Alert, Box } from "@mui/material";
+import { IconoFolder } from "../../assets/svg/IconoFolder.jsx";
 
 const ImageUploadForm = ({
   formData,
@@ -50,7 +51,8 @@ const ImageUploadForm = ({
           id="file-upload"
         />
         <label htmlFor="file-upload">
-          <Button variant="contained" component="span" fullWidth>
+          <Button variant="contained" component="span" fullWidth sx={{height:"150px",backgroundColor: "#f5f5f5", borderColor: "#2271D1", color:"gray", display:"flex", flexDirection: "column", gap:"10px"}}>
+            <IconoFolder/>
             Seleccionar Imagen
           </Button>
         </label>
