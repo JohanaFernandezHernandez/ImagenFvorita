@@ -1,4 +1,4 @@
-import { TextField, Button, Alert, Box } from "@mui/material";
+import { TextField, Button, Alert, Box,Typography } from "@mui/material";
 import { IconoFolder } from "../../assets/svg/IconoFolder.jsx";
 
 const ImageUploadForm = ({
@@ -14,9 +14,9 @@ const ImageUploadForm = ({
   return (
     <form onSubmit={handleSubmit}>
       <Box mb={2}>
+        <Typography sx={{display:"flex", marginBottom: "5px"}}>Titulo</Typography>
         <TextField
           fullWidth
-          label="Título"
           variant="outlined"
           name="Title"
           value={formData.Title}
@@ -40,6 +40,7 @@ const ImageUploadForm = ({
           }}
         />
       </Box>
+      <Typography sx={{display:"flex", marginBottom: "5px"}}>Imagen</Typography>
 
       <Box mb={2}>
         <input
