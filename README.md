@@ -10,6 +10,7 @@ se busco tener una buena integracion con el usuario y su funcionalidad
 
 1. Clona el repositorio.
    ```bash
+   https://github.com/JohanaFernandezHernandez/ImagenFvorita.git
    
    
 2. Luego realiza un cd a la carpeta tanto del Back como del Front y Instala las dependencias:
