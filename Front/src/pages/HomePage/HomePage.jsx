@@ -8,16 +8,40 @@ import Swal from "sweetalert2";
 import { Typography, Box } from "@mui/material";
 
 export const HomePage = () => {
-  const [images, setImages] = useState([]);
+  const defaultImages = [
+    {
+      ImagenID: 'default-1',
+      Title: 'Flor de ejemplo 1',
+      ImagenURL: Flor,
+      isDefault: true
+    },
+    {
+      ImagenID: 'default-2',
+      Title: 'Flor de ejemplo 2',
+      ImagenURL: Flor2,
+      isDefault: true
+    }
+  ];
+
+  const [images, setImages] = useState(defaultImages);
+  const [showDefaultMessage, setShowDefaultMessage] = useState(true);
   const { getImages, deleteImage, updateImage } = useConectionApi();
 
   //Obtener todas las imágenes de la DB
   const fetchImages = async () => {
     try {
       const response = await getImages();
-      setImages(response);
+      if (response && response.length > 0) {
+        setImages(response);
+        setShowDefaultMessage(false);
+      } else {
+        setImages(defaultImages);
+        setShowDefaultMessage(true);
+      }
     } catch (error) {
       console.error("Error al obtener imágenes:", error);
+      setImages(defaultImages);
+      setShowDefaultMessage(true);
     }
   };
 
@@ -40,13 +64,13 @@ export const HomePage = () => {
       if (result.isConfirmed) {
         try {
           await deleteImage(id);
+          await fetchImages(); 
           Swal.fire({
             title: "¡Eliminado!",
             text: "La imagen ha sido eliminada con éxito.",
             icon: "success",
             confirmButtonText: "Aceptar",
           });
-          fetchImages();
         } catch (error) {
           Swal.fire({
             title: "Error",
@@ -70,7 +94,7 @@ export const HomePage = () => {
           icon: "success",
           confirmButtonText: "Aceptar",
         });
-        await fetchImages(); // Refrescar la lista de imágenes
+        await fetchImages(); 
       }
     } catch (error) {
       Swal.fire({
@@ -99,27 +123,31 @@ export const HomePage = () => {
       <Box>
         <Typography
           variant="h4"
-          align="center"
-          gutterBottom
+          component="h1"
           sx={{
-            fontSize: {
-              xs: "28px",
-              sm: "28px",
-              md: "28px",
-              lg: "35px",
-              xl: "40px",
-            },
-            margin: {
-              xs: "16px",
-              sm: "16px",
-              md: "16px",
-              lg: "10px",
-              xl: "10px",
-            },
+            textAlign: "center",
+            marginBottom: "1em",
+            color: "#fff",
           }}
         >
-          Guarda tus imagenes Favoritas
+          Galería de Imágenes
         </Typography>
+        {showDefaultMessage && (
+          <Typography
+            variant="body1"
+            sx={{
+              textAlign: "center",
+              marginBottom: "2em",
+              color: "#666",
+              backgroundColor: "#f8f9fa",
+              padding: "1em",
+              borderRadius: "8px",
+              border: "1px solid #dee2e6"
+            }}
+          >
+            Estas son imágenes de prueba, por ende no se pueden editar. Agrega tus propias imágenes para empezar a crear tu galería.
+          </Typography>
+        )}
       </Box>
       <section className="container-card">
         {images.map((imagen) => (
@@ -128,8 +156,8 @@ export const HomePage = () => {
             id={imagen.ImagenID}
             img={imagen.ImagenURL}
             title={imagen.Title}
-            onDelete={handleDelete}
-            onEdit={handleEdit}
+            onDelete={!imagen.isDefault ? handleDelete : null}
+            onEdit={!imagen.isDefault ? handleEdit : null}
           />
         ))}
       </section>

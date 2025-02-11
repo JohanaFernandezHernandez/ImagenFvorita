@@ -133,7 +133,7 @@ export const Card = ({ img, title, id, onDelete, onEdit }) => {
               minWidth:"30px",
               width:"35px",
               "&:hover": {
-                backgroundColor: "gray",
+                backgroundColor: "white",
               },
               fontWeight: "400",
               fontSize: {
@@ -165,7 +165,7 @@ export const Card = ({ img, title, id, onDelete, onEdit }) => {
               backgroundColor: "transparent",
               color: "#ffffff",
               "&:hover": {
-                backgroundColor: "#ee9f0c",
+                backgroundColor: "white",
               },
               textTransform: "none",
               fontWeight: "400",
