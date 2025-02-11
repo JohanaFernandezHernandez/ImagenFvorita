@@ -26,19 +26,19 @@ se busco tener una buena integracion con el usuario y su funcionalidad
 tener presente que aqui va la informacion de la conexion a la tabla o base de datos local por ende tienes que poner tu pasword.
 
    - `DB_USER`= *postgres*
-   -`DB_PASSWORD`= ***** aqui va la clave de tu usuario de Postgres
-   -`DB_NAME`= *ImagenesDB*
-   -`DB_NAME`= *localhost*
-   -`DB_NAME`= *5432*
-   -`PORT` = *4008*
+   - `DB_PASSWORD`= ***** aqui va la clave de tu usuario de Postgres
+   - `DB_NAME`= *ImagenesDB*
+   - `DB_NAME`= *localhost*
+   - `DB_NAME`= *5432*
+   - `PORT` = *4008*
 
 4.Después de esto puedes arrancar la aplicación en los siguiente comandos:
 
      
-     ```FRONT
+   FRONT
    - __`npm run dev`__
 
-   - ```BACK
+   BACK
    - __`npm start`__
 
 
@@ -53,9 +53,9 @@ Se utilizaron las siguientes tecnologías:
 
 - [axios ](https://axios-http.com/es/docs/intro) - *Para las conexiones con la API*.
 
--[node.js] - *Utilizado para el desarrollo del back*.
+- [node.js](https://nodejs.org/es) - *Utilizado para el desarrollo del back*.
 
--[postgres.sql] - *base de datos
+- [postgres.sql](https://www.postgresql.org/) - *base de datos
 
 
 ## Información Adicional 📖
