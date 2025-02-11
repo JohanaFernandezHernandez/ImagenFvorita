@@ -60,7 +60,9 @@ Se utilizaron las siguientes tecnologías:
 
 ## Información Adicional 📖
 
-Este proyecto es una prueba técnica y representa una versión preliminar, te voy a dejar un link de un breve video eplicandote la funcionalidad y si te queda alguna duda en la instalacion.
+Este proyecto es una prueba técnica y representa una versión preliminar, te voy a dejar un link de un breve video explicandote la funcionalidad y si te queda alguna duda en la instalacion.
+
+[ Video Explicativo ](https://www.loom.com/share/535e82e836d04ecf9aaa982ba3b31897?sid=00ce248f-4077-4a6b-bd33-884894904dfe)
 
 
 ## Autora ✒️
