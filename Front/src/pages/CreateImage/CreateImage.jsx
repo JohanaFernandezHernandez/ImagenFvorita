@@ -40,12 +40,15 @@ const CreateImage = () => {
     setIsSubmitting(true);
 
     try {
-      if (!formData.Title.trim()) throw new Error("Por favor ingresa un título");
+      if (!formData.Title.trim())
+        throw new Error("Por favor ingresa un título");
       if (!formData.file) throw new Error("Por favor selecciona una imagen");
 
       const validTypes = ["image/jpeg", "image/png", "image/gif", "image/webp"];
       if (!validTypes.includes(formData.file.type))
-        throw new Error("Selecciona un archivo de imagen válido (JPEG, PNG, GIF, WEBP)");
+        throw new Error(
+          "Selecciona un archivo de imagen válido (JPEG, PNG, GIF, WEBP)"
+        );
 
       const maxSize = 5 * 1024 * 1024;
       if (formData.file.size > maxSize)
@@ -67,14 +70,13 @@ const CreateImage = () => {
   };
 
   return (
-    <Container 
-      maxWidth="sm" 
-      sx={{ 
-        minHeight: "70vh", 
-        maxWidth: "1550px", 
+    <Container
+      maxWidth="sm"
+      sx={{
+        minHeight: "70vh",
         margin: "30px auto",
         width: {
-          xs: "100%",
+          xs: "95%",
           sm: "85%",
           md: "75%",
           lg: "1150px",
@@ -84,18 +86,32 @@ const CreateImage = () => {
         borderRadius: "30px",
         boxShadow: "0px 10px 60px 0px #E2ECF980, 0px 4px 4px 0px #00000040",
         maxWidth: "1226px",
-        padding: {
-          xs: "14px 9px",
-          sm: "14px 9px",
-          md: "24px 29px",
-          lg: "37px 29px",
-          xl: "37px 29px",
-        },
+        padding: "min(5em, 2%)",
         boxSizing: "border-box",
         marginTop: "16px",
       }}
     >
-      <Typography variant="h4" align="center" gutterBottom>
+      <Typography
+        variant="h4"
+        align="center"
+        gutterBottom
+        sx={{
+          fontSize: {
+            xs: "28px",
+            sm: "28px",
+            md: "28px",
+            lg: "35px",
+            xl: "40px",
+          },
+          margin: {
+            xs: "16px",
+            sm: "16px",
+            md: "16px",
+            lg: "10px",
+            xl: "10px",
+          },
+        }}
+      >
         Subir Nueva Imagen
       </Typography>
       <ImageUploadForm

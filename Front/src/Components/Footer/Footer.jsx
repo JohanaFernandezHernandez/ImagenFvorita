@@ -56,7 +56,7 @@ export const Footer = () => {
           gap: 0.5
         }}
       >
-        <span>Hecho por Johana Fernandez</span>
+        <span>Hecho por @Johana Fernandez</span>
         <span> {new Date().getFullYear()} Todos los derechos reservados</span>
       </Typography>
     </Box>

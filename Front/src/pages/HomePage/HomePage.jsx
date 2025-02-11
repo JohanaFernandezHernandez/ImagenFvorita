@@ -83,9 +83,43 @@ export const HomePage = () => {
   };
 
   return (
-    <Box sx={{maxWidth:"1550px", margin: "30px auto"}}>
+    <Box
+      sx={{
+        maxWidth: "1550px",
+        margin: {
+          xs: "5px auto",
+          sm: "5px auto",
+          md: "10px auto",
+          lg: "25px auto",
+          xl: "25px auto",
+        },
+        padding: "min(5em, 2%)",
+      }}
+    >
       <Box>
-        <Typography variant="h4" align="center" gutterBottom>Guarda tus imagenes Favoritas</Typography>
+        <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          sx={{
+            fontSize: {
+              xs: "28px",
+              sm: "28px",
+              md: "28px",
+              lg: "35px",
+              xl: "40px",
+            },
+            margin: {
+              xs: "16px",
+              sm: "16px",
+              md: "16px",
+              lg: "10px",
+              xl: "10px",
+            },
+          }}
+        >
+          Guarda tus imagenes Favoritas
+        </Typography>
       </Box>
       <section className="container-card">
         {images.map((imagen) => (

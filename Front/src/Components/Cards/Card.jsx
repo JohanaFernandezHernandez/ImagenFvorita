@@ -84,7 +84,14 @@ export const Card = ({ img, title, id, onDelete, onEdit }) => {
 
   {/* Contenido */}
   <CardContent sx={{ padding: "10px" }}>
-    <Typography variant="h6" fontWeight="bold" textAlign="center" color="#ffffff">
+    <Typography variant="p" fontWeight="bold" textAlign="center" color="#ffffff" sx={{
+       fontWeight: "400",
+       fontSize: {
+         xs: "16px",
+         md: "18px",
+         xl: "20px",
+       },
+    }}>
       {title}
     </Typography>
   </CardContent>
@@ -106,12 +113,22 @@ export const Card = ({ img, title, id, onDelete, onEdit }) => {
       sx={{
         borderRadius: 2,
         textTransform: "none",
-        fontWeight: "bold",
         backgroundColor: "#ff5c5c",
         color: "#ffffff",
         "&:hover": {
           backgroundColor: "#e53935",
         },
+            fontWeight: "400",
+            fontSize: {
+              xs: "14px",
+              md: "16px",
+              xl: "18px",
+            },
+            gap:{
+              xs: "5px",
+              md: "10px",
+              xl: "15px",
+            }
       }}
     >
       Borrar
@@ -124,13 +141,23 @@ export const Card = ({ img, title, id, onDelete, onEdit }) => {
       onClick={handleOpen}
       sx={{
         borderRadius: 2,
-        textTransform: "none",
-        fontWeight: "bold",
         backgroundColor: "#2271D1",
         color: "#ffffff",
         "&:hover": {
           backgroundColor: "#1a5bb5",
         },
+        textTransform: "none",
+            fontWeight: "400",
+            fontSize: {
+              xs: "14px",
+              md: "16px",
+              xl: "18px",
+            },
+            gap:{
+              xs: "5px",
+              md: "10px",
+              xl: "15px",
+            }
       }}
     >
       Editar
@@ -165,7 +192,7 @@ export const Card = ({ img, title, id, onDelete, onEdit }) => {
             )}
 
             <Box sx={{ display: "flex", gap: 2, justifyContent: "flex-end" }}>
-              <Button variant="outlined" onClick={handleClose}>
+              <Button variant="outlined" onClick={handleClose} >
                 Cancelar
               </Button>
               <Button variant="contained" type="submit" color="primary">
