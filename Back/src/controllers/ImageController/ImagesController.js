@@ -10,18 +10,15 @@ exports.createImagen = async (req, res) => {
     if (!Title) {
       return res.status(400).json({ message: "El título es obligatorio." });
     }
-    // Verificar si el archivo fue subido
     if (!req.file) {
       return res.status(400).json({ message: "Es obligatorio subir una imagen." });
     }
 
-    // Extraer información del archivo subido
     const { filename, mimetype, size } = req.file;
 
-    // Generar la URL de la imagen basada en el archivo subido
+    // Generar la URL en la carpeta
     const ImagenURL = `${req.protocol}://${req.get("host")}/uploads/${filename}`;
 
-    // Crear el registro en la base de datos
     const imagen = await Imagen.create({
       Title,
       ImagenURL,
@@ -85,19 +82,17 @@ exports.updateImagen = async (req, res) => {
 
     let oldFilename = null;
 
-    // Si se subió un nuevo archivo, preparar para eliminar la imagen anterior
     if (req.file) {
       console.log('Nuevo archivo recibido:', req.file);
       oldFilename = imagen.filename;
 
-      // Guardar los nuevos datos de la imagen
+      // Guarda los nuevos Datos
       const { filename, mimetype, size } = req.file;
       imagen.filename = filename;
       imagen.mimetype = mimetype;
       imagen.size = size;
       imagen.ImagenURL = `${req.protocol}://${req.get("host")}/uploads/${filename}`;
 
-      // Eliminar el archivo antiguo solo después de confirmar que el nuevo está guardado
       if (oldFilename) {
         const deleted = await deleteImageFile(oldFilename);
         if (!deleted) {
@@ -105,13 +100,10 @@ exports.updateImagen = async (req, res) => {
         }
       }
     }
-
-    // Actualizar el título solo si fue proporcionado
     if (Title) {
       imagen.Title = Title;
     }
 
-    // Guardar los cambios
     await imagen.save();
     
     res.status(200).json({
@@ -120,7 +112,6 @@ exports.updateImagen = async (req, res) => {
     });
   } catch (error) {
     console.error('Error en updateImagen:', error);
-    // Si hay un error y se subió un nuevo archivo, intentar eliminarlo
     if (req.file) {
       await deleteImageFile(req.file.filename);
     }
@@ -139,7 +130,6 @@ const deleteImageFile = async (filename) => {
   }
   
   try {
-    // Corregimos la ruta para que apunte al directorio uploads en la raíz del proyecto
     const uploadsDir = path.join(__dirname, "../../../uploads");
     const filePath = path.join(uploadsDir, filename);
     
@@ -177,13 +167,10 @@ exports.deleteImagen = async (req, res) => {
       return res.status(404).json({ message: "Imagen no encontrada" });
     }
 
-    // Guardar el nombre del archivo antes de eliminar el registro
     const filename = imagen.filename;
 
-    // Eliminar el registro de la base de datos primero
     await imagen.destroy();
 
-    // Intentar eliminar el archivo físico
     let fileDeleted = false;
     if (filename) {
       fileDeleted = await deleteImageFile(filename);
