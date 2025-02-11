@@ -2,11 +2,11 @@
 
 .container-card{
     display: flex;
-    min-height: 100vh;
+    min-height: 60vh;
     width: 100%;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: center;
     gap: 30px;
-    align-items: center;
+    align-items: start;
     margin: 20px auto;
 }

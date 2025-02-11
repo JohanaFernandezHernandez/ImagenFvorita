@@ -69,12 +69,12 @@ export const Card = ({ img, title, id, onDelete, onEdit }) => {
       sx={{
         width: 350,
         borderRadius: 3,
-        boxShadow: "0px 4px 8px rgba(255, 255, 255, 0.1)", // Sombra sutil en gris/blanco
-        transition: "transform 0.3s ease, box-shadow 0.3s ease", // Animación suave en hover
-        backgroundColor: "#1e1e1e", // Fondo oscuro para la card
+        boxShadow: "0px 4px 8px rgba(255, 255, 255, 0.1)", 
+        transition: "transform 0.3s ease, box-shadow 0.3s ease", 
+        backgroundColor: "#1e1e1e", 
         "&:hover": {
-          boxShadow: "0px 8px 16px rgba(255, 255, 255, 0.2)", // Sombra más intensa en hover
-          transform: "scale(1.03)", // Efecto de zoom sutil
+          boxShadow: "0px 8px 16px rgba(255, 255, 255, 0.2)", 
+          transform: "scale(1.03)", 
         },
         overflow: "hidden",
       }}
